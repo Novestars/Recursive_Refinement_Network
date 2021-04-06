@@ -5,7 +5,7 @@ import gpu_utils
 
 import uflow_utils
 
-class PWCFlow(nn.Module):
+class RRNFlow(nn.Module):
     def __init__(self,
                  leaky_relu_alpha=0.05,
                  dropout_rate=0,
@@ -18,7 +18,7 @@ class PWCFlow(nn.Module):
                  accumulate_flow=True,
                  shared_flow_decoder=False,
                  action_channels=None):
-        super(PWCFlow, self).__init__()
+        super(RRNFlow, self).__init__()
 
         self._leaky_relu_alpha = leaky_relu_alpha
         self._drop_out_rate = dropout_rate
@@ -270,7 +270,7 @@ class PWCFlow(nn.Module):
                     stride=1))
         return result
 
-class PWCFeaturePyramid(nn.Module):
+class RRNFeaturePyramid(nn.Module):
   """Model for computing a feature pyramid from an image."""
 
   def __init__(self,
@@ -307,7 +307,7 @@ class PWCFeaturePyramid(nn.Module):
       use_bfloat16: bool, whether or not to run in bfloat16 mode.
     """
 
-    super(PWCFeaturePyramid, self).__init__()
+    super(RRNFeaturePyramid, self).__init__()
 
     self._channel_multiplier = channel_multiplier
     if num_levels > 6:
