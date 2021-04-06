@@ -3,7 +3,7 @@ import torch
 import torch.nn.functional as func
 import gpu_utils
 
-import uflow_utils
+import rrn_utils
 
 class RRNFlow(nn.Module):
     def __init__(self,
