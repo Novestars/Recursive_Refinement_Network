@@ -1,4 +1,3 @@
-"""Flags used by uflow training and evaluation."""
 from absl import flags
 
 
