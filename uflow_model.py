@@ -284,29 +284,6 @@ class RRNFeaturePyramid(nn.Module):
                channel_multiplier=1.,
                pyramid_resolution='half',
                num_channels=3):
-    """Constructor.
-    Args:
-      leaky_relu_alpha: Float. Alpha for leaky ReLU.
-      filters: Tuple of tuples. Used to construct feature pyramid. Each tuple is
-        of form (num_convs_per_group, num_filters_per_conv).
-      level1_num_layers: How many layers and filters to use on the first
-        pyramid. Only relevant if filters is None and original_layer_sizes
-        is False.
-      level1_num_filters: int, how many filters to include on pyramid layer 1.
-        Only relevant if filters is None and original_layer_sizes if False.
-      level1_num_1x1: How many 1x1 convolutions to use on the first pyramid
-        level.
-      original_layer_sizes: bool, if True, use the original PWC net number
-        of layers and filters.
-      num_levels: int, How many feature pyramid levels to construct.
-      channel_multiplier: float, used to scale up or down the amount of
-        computation by increasing or decreasing the number of channels
-        by this factor.
-      pyramid_resolution: str, specifies the resolution of the lowest (closest
-        to input pyramid resolution)
-      use_bfloat16: bool, whether or not to run in bfloat16 mode.
-    """
-
     super(RRNFeaturePyramid, self).__init__()
 
     self._channel_multiplier = channel_multiplier
