@@ -24,9 +24,7 @@ flags.DEFINE_string('device', 'auto',
 
 # loss flags
 flags.DEFINE_float('weight_smooth1', 1.25, 'Weight for smoothness loss.')
-flags.DEFINE_float('smoothness_edge_constant', 100.,
-                   'Edge constant for smoothness loss.')
-flags.DEFINE_float('weight_ssim', 1.00, 'Weight for SSIM loss.')
+flags.DEFINE_float('weight_lcc', 1.00, 'Weight for LCC loss.')
 
 
 #0.005    i2e
