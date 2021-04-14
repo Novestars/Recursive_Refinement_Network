@@ -21,8 +21,8 @@ class RRN(nn.Module):
         f1 = [img1] + features1
         f2 = [img2] + features2
 
-        warps = [uflow_utils.flow_to_warp(f) for f in flows]
-        warped_f2 = [uflow_utils.resample(f, w) for (f, w) in zip(f2, warps)]
+        warps = [rrn_utils.flow_to_warp(f) for f in flows]
+        warped_f2 = [urrn_utils.resample(f, w) for (f, w) in zip(f2, warps)]
 
-        loss = uflow_utils.compute_all_loss(f1, warped_f2, flows,ncc)
+        loss = rrn_utils.compute_all_loss(f1, warped_f2, flows,ncc)
         return loss
