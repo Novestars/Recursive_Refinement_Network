@@ -74,11 +74,11 @@ class RRNFlow(nn.Module):
             if flow_up is None or not self._use_feature_warp:
                 warped2 = features2
             else:
-                warp_up = uflow_utils.flow_to_warp(flow_up)
-                warped2 = uflow_utils.resample(features2, warp_up)
+                warp_up = rrn_utils.flow_to_warp(flow_up)
+                warped2 = rrn_utils.resample(features2, warp_up)
 
             # Compute cost volume by comparing features1 and warped features2.
-            features1_normalized, warped2_normalized = uflow_utils.normalize_features(
+            features1_normalized, warped2_normalized = rrn_utils.normalize_features(
                 [features1, warped2],
                 normalize=self._normalize_before_cost_volume,
                 center=self._normalize_before_cost_volume,
@@ -86,7 +86,7 @@ class RRNFlow(nn.Module):
                 moments_across_images=True)
 
             if self._use_cost_volume:
-                cost_volume = uflow_utils.compute_cost_volume(features1_normalized, warped2_normalized, max_displacement=2)
+                cost_volume = rrn_utils.compute_cost_volume(features1_normalized, warped2_normalized, max_displacement=2)
             else:
                 concat_features = torch.cat([features1_normalized, warped2_normalized], dim=1)
                 cost_volume = self._cost_volume_surrogate_convs[level](concat_features)
@@ -142,7 +142,7 @@ class RRNFlow(nn.Module):
                 flow += flow_up
 
             # Upsample flow for the next lower level.
-            flow_up = uflow_utils.upsample(flow, is_flow=True)
+            flow_up = rrn_utils.upsample(flow, is_flow=True)
             if self._num_context_up_channels:
                 context_up = self._context_up_layers[level](context)
 
@@ -164,8 +164,8 @@ class RRNFlow(nn.Module):
         refined_flow = flow + refinement
         flows[0] = refined_flow
 
-        flows.insert(0, uflow_utils.upsample(flows[0], is_flow=True))
-        flows.insert(0, uflow_utils.upsample(flows[0], is_flow=True))
+        flows.insert(0, rrn_utils.upsample(flows[0], is_flow=True))
+        flows.insert(0, rrn_utils.upsample(flows[0], is_flow=True))
 
         return flows
 

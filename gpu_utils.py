@@ -2,7 +2,7 @@ import subprocess
 import os
 from absl import flags
 import torch
-import uflow_flags
+import rrn_flags
 
 FLAGS = flags.FLAGS
 

@@ -1,13 +1,13 @@
-import RRN_model
-import RRN_utils
+import rrn_model
+import rrn_utils
 import torch.nn as nn
 
 class RRN(nn.Module):
     def __init__(self, num_channels=3, num_levels = 5, use_cost_volume=True, action_channels = 0):
-        super(UFlow, self).__init__()
+        super(RRN, self).__init__()
 
-        self._pyramid = RRN_model.RRNFeaturePyramid(num_levels=num_levels, num_channels=num_channels)
-        self._flow_model = RRN_model.RRNFlow(num_levels = num_levels, num_channels_upsampled_context=32,
+        self._pyramid = rrn_model.RRNFeaturePyramid(num_levels=num_levels, num_channels=num_channels)
+        self._flow_model = rrn_model.RRNFlow(num_levels = num_levels, num_channels_upsampled_context=32,
                                                use_cost_volume=use_cost_volume, use_feature_warp=True,
                                                action_channels=action_channels)
 
@@ -22,7 +22,7 @@ class RRN(nn.Module):
         f2 = [img2] + features2
 
         warps = [rrn_utils.flow_to_warp(f) for f in flows]
-        warped_f2 = [urrn_utils.resample(f, w) for (f, w) in zip(f2, warps)]
+        warped_f2 = [rrn_utils.resample(f, w) for (f, w) in zip(f2, warps)]
 
         loss = rrn_utils.compute_all_loss(f1, warped_f2, flows,ncc)
         return loss

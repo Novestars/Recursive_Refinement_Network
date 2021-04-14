@@ -3,7 +3,7 @@ import torch
 from absl import flags
 
 import gpu_utils
-import uflow_flags
+import rrn_flags
 from loss_metrics import *
 
 FLAGS = flags.FLAGS
